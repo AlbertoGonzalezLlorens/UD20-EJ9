@@ -20,7 +20,9 @@ import java.awt.Color;
 public class MemoryGame extends JFrame {
 
 	private JPanel contentPane;
-	private final List<JToggleButton> list = new ArrayList<JToggleButton>();
+	private final int ROWS_GRID = 4;
+	private final int COLUMNS_GRID = 4;
+	private final List<Card> list = new ArrayList<Card>();
 	/**
 	 * Launch the application.
 	 */
@@ -37,18 +39,18 @@ public class MemoryGame extends JFrame {
 		});
 	}
 	
-	 private JToggleButton getGridButton(int r, int c) {
+	 private Card getGridButton(int r, int c) {
 	        int index = r * 4 + c;
 	        return list.get(index);
 	    }
 
-	    private JToggleButton createGridButton(final int row, final int col) {
-	        final JToggleButton b = new JToggleButton("r" + row + ",c" + col);
+	    private JToggleButton createGridButton( int row,  int col) {
+	    	
+	        JToggleButton b = new JToggleButton();
+	        
 	        b.addActionListener(new ActionListener() {
-
-	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	JToggleButton gb = getGridButton(row, col);
+	            	JToggleButton gb = getGridButton(row, col).getButton();
 	                System.out.println("r" + row + ",c" + col
 	                    + " " + (b == gb)
 	                    + " " + (b.equals(gb)));
@@ -64,14 +66,15 @@ public class MemoryGame extends JFrame {
 	  private JPanel createGridPanel() {
 		  
 			JPanel panel = new JPanel();
-			panel.setLayout(new GridLayout(4, 4, 0, 0));
+			panel.setLayout(new GridLayout(ROWS_GRID, COLUMNS_GRID));
 			
-	        for (int i = 0; i < 4 * 4; i++) {
-	            int row = i / 4;
-	            int col = i % 4;
-	            JToggleButton gb = createGridButton(row, col);
-	            list.add(gb);
-	            panel.add(gb);
+	        for (int i = 0; i < ROWS_GRID * COLUMNS_GRID; i++) {
+	            int row = i / ROWS_GRID;
+	            int col = i % COLUMNS_GRID;
+	            JToggleButton toggleButton = createGridButton(row, col);
+	            int[] a = {row,col};
+	            list.add(new Card(toggleButton,a));
+	            panel.add(toggleButton);
 	        }
 	        return panel;
 	    }
@@ -81,6 +84,8 @@ public class MemoryGame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	  
+	  
 	public MemoryGame() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
