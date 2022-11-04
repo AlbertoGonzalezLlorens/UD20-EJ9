@@ -1,13 +1,21 @@
 package Ud20.ej9;
 
-/**
- * Hello world!
- *
- */
+import java.awt.EventQueue;
+
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GridCreator frame = new GridCreator();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 }
